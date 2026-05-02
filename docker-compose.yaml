@@ -1,8 +1,6 @@
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: rupesh898/oidc-jenkins-gcp-wif-app:latest
     command: >
       sh -c "
       python manage.py migrate &&
