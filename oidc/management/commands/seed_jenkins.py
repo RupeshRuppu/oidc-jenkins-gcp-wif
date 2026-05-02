@@ -16,4 +16,4 @@ class Command(BaseCommand):
             defaults={"api_key": api_key}
         )
 
-        self.stdout.write(self.style.SUCCESS(f"API KEY: created={created}"))
+        self.stdout.write(self.style.SUCCESS(f"API KEY: created={created}, api_key={api_key}"))

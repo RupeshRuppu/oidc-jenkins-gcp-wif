@@ -8,12 +8,10 @@ services:
       python manage.py runserver 0.0.0.0:8000
       "
     container_name: oidc-jenkins
+    env_file:
+      - .env
     environment:
       - DEBUG=False
-      - OIDC_ISSUER=TODO
-      - PRIVATE_KEY_PATH=keys/private.pem
-      - PUBLIC_KEY_PATH=keys/public.pem
-      - SECRET_KEY="django-insecure-w=y(*#)#4^b#g3-9amyl*w1m*$%9pukoy*-#^-2-r1-r+*^u_t"
     ports:
       - "8000:8000"
       - "8080:8080"
