@@ -10,6 +10,8 @@ services:
       python manage.py runserver 0.0.0.0:8000
       "
     container_name: oidc-jenkins
+    volumes:
+      - ./keys:/app/keys
     environment:
       - DEBUG=False
       - OIDC_ISSUER=TODO
