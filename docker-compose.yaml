@@ -4,7 +4,6 @@ services:
     command: >
       sh -c "
       python manage.py migrate &&
-      python manage.py seed_jenkins &&
       python manage.py runserver 0.0.0.0:8000
       "
     container_name: oidc-jenkins
@@ -14,5 +13,4 @@ services:
       - DEBUG=False
     ports:
       - "8000:8000"
-      - "8080:8080"
     restart: unless-stopped
