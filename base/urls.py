@@ -6,5 +6,5 @@ def health(request):
 
 urlpatterns = [
     path("", include("oidc.urls")),
-    path("/health", health)
+    path("health/", health)
 ]
