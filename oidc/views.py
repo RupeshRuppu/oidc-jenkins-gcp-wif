@@ -10,8 +10,9 @@ def openid_configuration(request):
     data = {
         "issuer": settings.OIDC_ISSUER,
         "jwks_uri": f"{settings.OIDC_ISSUER}/.well-known/jwks",
-        "token_endpoint": f"{settings.OIDC_ISSUER}/token",
         "id_token_signing_alg_values_supported": ["RS256"],
+        "response_types_supported": ["id_token"],
+        "claims_supported": ["sub", "iss", "aud", "exp", "iat"]
     }
     return JsonResponse(data)
 
