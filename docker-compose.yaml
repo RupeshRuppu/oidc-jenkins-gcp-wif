@@ -2,11 +2,14 @@ services:
   app:
     image: rupesh898/oidc-server:latest
     container_name: oidc-jenkins
-    env_file:
-      - .env
     environment:
       - DEBUG=False
       - MONGODB_URI=mongodb://mongo:27017/oidc
+      - PORT=8000
+      - OIDC_ISSUER=https://oidc-token.radiantcloud.in
+      - PRIVATE_KEY_PATH=keys/private.pem
+      - PUBLIC_KEY_PATH=keys/public.pem
+      - OIDC_KEY_ID=f3d31c42-53bf-4cd9-8912-74df7be06bb7
     ports:
       - "8000:8000"
     depends_on:

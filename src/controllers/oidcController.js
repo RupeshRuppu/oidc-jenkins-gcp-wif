@@ -8,7 +8,16 @@ export function openidConfiguration(_req, res) {
     jwks_uri: `${config.oidcIssuer}/.well-known/jwks`,
     id_token_signing_alg_values_supported: ["RS256"],
     response_types_supported: ["id_token"],
-    claims_supported: ["sub", "iss", "aud", "exp", "iat"],
+    claims_supported: [
+      "sub",
+      "iss",
+      "project",
+      "environment",
+      "pipeline",
+      "jti",
+      "iat",
+      "exp",
+    ],
   });
 }
 
