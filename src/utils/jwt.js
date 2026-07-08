@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import crypto from "node:crypto";
+import crypto, { randomUUID } from "node:crypto";
 import jwt from "jsonwebtoken";
 import { config } from "../config.js";
 
@@ -11,32 +11,30 @@ function loadPublicKey() {
   return fs.readFileSync(config.publicKeyPath, "utf8");
 }
 
-// Issues an RS256 id_token with the same claim set as the original Django
-// provider: iss, sub, aud="gcp", iat, exp (+10 minutes).
 export function generateJwt(sub) {
   return jwt.sign(
     {
-      iss: config.oidcIssuer,
       sub,
-      aud: "gcp",
+      iss: config.oidcIssuer,
+      project: "fe-application",
+      environment: "production",
+      pipeline: "deploy-pipeline",
+      jti: randomUUID(),
     },
     loadPrivateKey(),
     {
       algorithm: "RS256",
       expiresIn: "10m",
-    }
+    },
   );
 }
 
-// Builds the JWKS document from the RSA public key. `crypto` exports the
-// modulus (n) and exponent (e) as base64url without padding, matching the
-// original hand-rolled encoding.
 export function getJwks() {
   const jwk = crypto.createPublicKey(loadPublicKey()).export({ format: "jwk" });
   return {
     keys: [
       {
-        kty: "RSA",
+        kty: jwk.kty,
         alg: "RS256",
         use: "sig",
         kid: config.keyId,

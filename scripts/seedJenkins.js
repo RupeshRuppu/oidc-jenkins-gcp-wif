@@ -3,8 +3,6 @@ import { assertConfig } from "../src/config.js";
 import { connectDb, disconnectDb } from "../src/db.js";
 import { JenkinsClient } from "../src/models/JenkinsClient.js";
 
-// Equivalent of the Django `seed_jenkins` management command: upsert the
-// "jenkins-prod" client with a freshly generated URL-safe API key.
 async function main() {
   assertConfig();
   await connectDb();
@@ -12,9 +10,9 @@ async function main() {
   const apiKey = crypto.randomBytes(32).toString("base64url");
 
   const result = await JenkinsClient.findOneAndUpdate(
-    { name: "jenkins-prod" },
+    { name: "jenkins-prod-pipeline" },
     { $set: { apiKey } },
-    { new: true, upsert: true, rawResult: true }
+    { new: true, upsert: true, rawResult: true },
   );
 
   const created = result.lastErrorObject?.updatedExisting === false;

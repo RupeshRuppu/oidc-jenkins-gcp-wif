@@ -18,21 +18,13 @@ export function jwks(_req, res) {
 
 export async function token(req, res) {
   const apiKey = req.get("X-API-KEY");
-
   if (!apiKey) {
     return res.status(401).json({ error: "missing_api_key" });
   }
-
-  // apiKey comes from an HTTP header, so it is always a string here. The lookup
-  // is a straight equality match against a unique-indexed field (no operator
-  // injection possible from a string value).
   const client = await JenkinsClient.findOne({ apiKey, isActive: true }).lean();
-
   if (!client) {
     return res.status(401).json({ error: "unauthorized" });
   }
-
-  const idToken = generateJwt(`jenkins:${client.name}`);
-
-  return res.json({ id_token: idToken });
+  const idToken = generateJwt(`${client.name}`);
+  return res.json({ token: idToken });
 }

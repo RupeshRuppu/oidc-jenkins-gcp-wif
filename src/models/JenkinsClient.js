@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
 
-// Mirrors the Django `JenkinsClient` model:
-//   name (unique), api_key (unique), is_active (default true)
 const jenkinsClientSchema = new mongoose.Schema(
   {
     name: {
@@ -22,7 +20,10 @@ const jenkinsClientSchema = new mongoose.Schema(
       default: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-export const JenkinsClient = mongoose.model("JenkinsClient", jenkinsClientSchema);
+export const JenkinsClient = mongoose.model(
+  "JenkinsClient",
+  jenkinsClientSchema,
+);
