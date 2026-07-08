@@ -1,6 +1,6 @@
 services:
   app:
-    build: .
+    image: rupesh898/oidc-server:latest
     container_name: oidc-jenkins
     env_file:
       - .env
