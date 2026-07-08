@@ -1,14 +1,20 @@
-FROM --platform=linux/amd64 python:3.10-alpine
+FROM --platform=linux/amd64 node:20-alpine
 WORKDIR /app
 
-RUN apk add --no-cache openssl
-RUN mkdir -p /app/keys && \
+# Generate the RSA signing keys used for RS256 id_tokens / JWKS.
+# NOTE: keys are generated at build time here for convenience. In production,
+# mount stable keys (volume or secret manager) so the JWKS GCP trusts does not
+# change on every rebuild.
+RUN apk add --no-cache openssl && \
+    mkdir -p /app/keys && \
     openssl genrsa -out /app/keys/private.pem 2048 && \
     openssl rsa -in /app/keys/private.pem -pubout -out /app/keys/public.pem
 
+COPY package*.json ./
+RUN npm install --omit=dev
+
 COPY . .
 
-RUN pip install -r requirements.txt
-
 EXPOSE 8000
-EXPOSE 8080
+
+CMD ["node", "src/server.js"]

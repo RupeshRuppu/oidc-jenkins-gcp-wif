@@ -1,0 +1,21 @@
+{
+  "name": "oidc-jenkins-gcp-wif",
+  "version": "1.0.0",
+  "description": "Minimal OIDC provider that issues signed id_tokens for Jenkins to authenticate against GCP Workload Identity Federation.",
+  "type": "module",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "seed": "node scripts/seedJenkins.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.5"
+  }
+}

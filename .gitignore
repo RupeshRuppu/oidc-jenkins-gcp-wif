@@ -1,8 +1,5 @@
-*.pyc
-*.pyd
-__pycache__/
-db.sqlite3
+node_modules/
+npm-debug.log*
 keys/
-venv/
-env/  
 .env
+*.pem
