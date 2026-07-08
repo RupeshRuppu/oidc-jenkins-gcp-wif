@@ -1,16 +1,24 @@
 services:
   app:
-    image: rupesh898/oidc-jenkins-gcp-wif-app:latest
-    command: >
-      sh -c "
-      python manage.py migrate &&
-      python manage.py runserver 0.0.0.0:8000
-      "
+    build: .
     container_name: oidc-jenkins
     env_file:
       - .env
     environment:
       - DEBUG=False
+      - MONGODB_URI=mongodb://mongo:27017/oidc
     ports:
       - "8000:8000"
+    depends_on:
+      - mongo
     restart: unless-stopped
+
+  mongo:
+    image: mongo:7
+    container_name: oidc-mongo
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
