@@ -20,6 +20,7 @@ export function generateJwt(sub) {
       environment: "production",
       pipeline: "deploy-pipeline",
       jti: randomUUID(),
+      aud: config.audience
     },
     loadPrivateKey(),
     {

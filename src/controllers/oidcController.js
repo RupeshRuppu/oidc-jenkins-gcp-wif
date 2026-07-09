@@ -17,6 +17,7 @@ export function openidConfiguration(_req, res) {
       "jti",
       "iat",
       "exp",
+      "aud"
     ],
   });
 }
