@@ -12,8 +12,7 @@ const resolveKeyPath = (envValue, fallback) =>
     ? envValue
     : path.join(BASE_DIR, envValue ?? fallback);
 
-
-const PROJECT_ID = process.env.PROJECT_ID;
+const PROJECT_NUMBER = process.env.PROJECT_NUMBER;
 
 export const config = {
   port: Number(process.env.PORT ?? 8000),
@@ -26,7 +25,7 @@ export const config = {
   ),
   publicKeyPath: resolveKeyPath(process.env.PUBLIC_KEY_PATH, "keys/public.pem"),
   keyId: process.env.OIDC_KEY_ID,
-  audience: `https://iam.googleapis.com/projects/${PROJECT_ID}/locations/global/workloadIdentityPools/jenkins-cicd-pool/providers/jenkins-cicd-pool`
+  audience: `//iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/jenkins-cicd-pool/providers/jenkins-cicd-pool`,
 };
 
 export function assertConfig() {
