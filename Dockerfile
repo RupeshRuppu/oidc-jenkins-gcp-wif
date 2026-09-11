@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 node:20-alpine
+FROM node:20-alpine
 WORKDIR /app
 
 # Generate the RSA signing keys used for RS256 id_tokens / JWKS.
