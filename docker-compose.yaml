@@ -1,6 +1,6 @@
 services:
   app:
-    image: rupesh898/oidc-server:latest
+    build: .
     container_name: oidc-jenkins
     environment:
       - DEBUG=False
